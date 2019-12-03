@@ -34,7 +34,7 @@ namespace Vidly.Controllers
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(Customer customer)
+    public ActionResult Create(Customer customers)
     {
         if (!ModelState.IsValid)
         {
@@ -45,20 +45,20 @@ namespace Vidly.Controllers
         }
         else
         {
-            if (customer.Id != 0)
+            if (customers.Id != 0)
             {
-                var customersInDb = _context.Customers.FirstOrDefault(c => c.Id == customer.Id);
-                customersInDb.Name = customer.Name;
-                customersInDb.BirthDate = customer.BirthDate;
-                customersInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-                customersInDb.MemberShipType = customer.MemberShipType;
+                var customersInDb = _context.Customers.FirstOrDefault(c => c.Id == customers.Id);
+                customersInDb.Name = customers.Name;
+                customersInDb.BirthDate = customers.BirthDate;
+                customersInDb.IsSubscribedToNewsletter = customers.IsSubscribedToNewsletter;
+                customersInDb.MemberShipType = customers.MemberShipType;
                 _context.SaveChanges();
                 return RedirectToAction("Details", "Customers");
 
             }
             else
             {
-                _context.Customers.Add(customer);
+                _context.Customers.Add(customers);
                 _context.SaveChanges();
                 return RedirectToAction("Details", "Customers");
             }
