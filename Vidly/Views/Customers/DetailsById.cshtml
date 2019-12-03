@@ -1,0 +1,40 @@
+﻿@model Vidly.Models.Customer
+@{
+    ViewBag.Title = "DeatailsById";
+}
+
+
+@if (@Model != null)
+{
+    <div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    MemberShip Type Name
+                </th>
+                <th>
+                    BirthDate
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Model.Name
+                </td>
+                <td>
+                    @Model.MemberShipType.Name
+                </td>
+                @if (@Model.BirthDate != null)
+                {
+                    <td>
+                        @Model.BirthDate.Value.ToShortDateString()
+                    </td>
+                }
+            </tr>
+        </table>
+    </div>
+}
+

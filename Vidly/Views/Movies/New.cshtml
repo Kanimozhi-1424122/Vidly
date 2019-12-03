@@ -1,0 +1,49 @@
+﻿@model Vidly.ViewModel.MovieFromViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model.Movie.Id == 0)
+{
+    <h2>New Movie</h2>
+}
+else
+{
+    <h2>Edit Movie</h2>
+}
+
+@using (Html.BeginForm("Create", "Movies"))
+{
+    @Html.ValidationSummary(true, "Please fix the following error")
+
+    @Html.Hidden("MovieId")
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Name)
+        @Html.TextBoxFor(c => c.Movie.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ReleaseDate)
+        @Html.TextBoxFor(c => c.Movie.ReleaseDate, "{0:d MM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.ReleaseDate)
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.Movie.DateAdded)
+            @Html.TextBoxFor(c => c.Movie.DateAdded, new { @class = "form-control" })
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.GenreId)
+        @Html.DropDownListFor(c => c.Movie.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Select Genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.GenreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.NumberOfStocks)
+        @Html.TextBoxFor(c => c.Movie.NumberOfStocks, new { @class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Movie.NumberOfStocks)
+    </div>
+    <div class="form-group">
+        <input type="submit" name="btnsubmit" class="btn btn-primary" value="Save" />
+    </div>
+}
+
